@@ -3,8 +3,15 @@ import { useQuery } from "@tanstack/react-query";
 
 import { useTRPC } from "@/trpc/react";
 
+//? Doc: https://tanstack.com/router/v1/docs/framework/react/api/router/createFileRouteFunction
 export const Route = createFileRoute("/example/guitars/")({
   component: GuitarsIndex,
+  // prefetch guitars list
+  loader: async ({ context }) => {
+    await context.queryClient.prefetchQuery(
+      context.trpc.guitars.list.queryOptions()
+    );
+  },
 });
 
 function GuitarsIndex() {
