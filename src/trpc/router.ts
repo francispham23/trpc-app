@@ -1,12 +1,15 @@
 import { TRPCError } from "@trpc/server";
+import type { TRPCRouterRecord } from "@trpc/server";
 import { z } from "zod";
 
-import type { TRPCRouterRecord } from "@trpc/server";
-
-import guitars from "../data/example-guitars";
 import { createTRPCRouter, publicProcedure } from "./init";
 
-const guitarRouter: TRPCRouterRecord = {
+import guitars from "@/data/example-guitars";
+
+/**
+ * guitarRouter handles the guitar-related routes.
+ */
+const guitarRouter = {
   list: publicProcedure.query(async () => guitars),
   byId: publicProcedure
     .input(z.object({ id: z.number() }))
@@ -22,8 +25,14 @@ const guitarRouter: TRPCRouterRecord = {
     }),
 } satisfies TRPCRouterRecord;
 
+/**
+ * trpcRouter handles the root TRPC router.
+ */
 export const trpcRouter = createTRPCRouter({
-  guitar: guitarRouter,
+  guitars: guitarRouter,
 });
 
+/**
+ * TRPCRouter is the type of the root TRPC router.
+ */
 export type TRPCRouter = typeof trpcRouter;
