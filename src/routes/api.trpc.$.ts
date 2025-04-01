@@ -7,6 +7,7 @@ import { trpcRouter } from "@/trpc/router";
  * handler handles the TRPC requests(Eg. Created API Endpoint: http://localhost:3000/api/trpc/guitars.list).
  */
 function handler({ request }: { request: Request }) {
+  //? Doc: https://trpc.io/docs/server/adapters/fetch#solidstart
   return fetchRequestHandler({
     req: request,
     router: trpcRouter,

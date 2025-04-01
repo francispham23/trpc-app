@@ -21,8 +21,10 @@ function getUrl() {
   return `${base}/api/trpc`;
 }
 
+//? Doc: https://trpc.io/docs/client/vanilla/setup#3-initialize-the-trpc-client
 export const trpcClient = createTRPCClient<TRPCRouter>({
   links: [
+    //? Doc: https://trpc.io/docs/client/links/httpBatchStreamLink
     httpBatchStreamLink({
       transformer: superjson,
       url: getUrl(),
@@ -30,6 +32,7 @@ export const trpcClient = createTRPCClient<TRPCRouter>({
   ],
 });
 
+//? Doc: https://trpc.io/docs/client/tanstack-react-query/setup#3b-setup-without-react-context
 const serverHelpers = createTRPCOptionsProxy({
   client: trpcClient,
   queryClient,

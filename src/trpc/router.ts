@@ -12,6 +12,7 @@ import guitars from "@/data/example-guitars";
 const guitarRouter = {
   list: publicProcedure.query(async () => guitars),
   byId: publicProcedure
+    //? Doc: https://trpc.io/docs/server/validators#input-merging
     .input(z.object({ id: z.number() }))
     .query(async ({ input }) => {
       const guitar = guitars.find((guitar) => guitar.id === input.id);

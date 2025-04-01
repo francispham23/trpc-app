@@ -7,7 +7,7 @@ import { routeTree } from "./routeTree.gen";
 
 import "./styles.css";
 
-// Create a new router instance
+// Create a new router instance. Doc: https://tanstack.com/router/latest/docs/framework/react/examples/with-trpc-react-query
 export const createRouter = () => {
   const router = routerWithQueryClient(
     createTanstackRouter({
@@ -17,6 +17,7 @@ export const createRouter = () => {
       },
       scrollRestoration: true,
       defaultPreloadStaleTime: 0,
+      //? Doc: https://tanstack.com/router/latest/docs/framework/react/api/router/RouterOptionsType#wrap-property
       Wrap: (props: { children: React.ReactNode }) => (
         <TanstackQuery.Provider>{props.children}</TanstackQuery.Provider>
       ),
